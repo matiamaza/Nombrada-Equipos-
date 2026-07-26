@@ -75,12 +75,12 @@ function parseFile(file) {
           });
           if (jsonRows.length === 0) throw new Error('Hoja de cálculo vacía.');
           headers = jsonRows[0].map(sanitize);
-          // Remove duplicate header names by appending index
+          // Remove duplicate header names by appending a 1-based counter
           const seen = {};
           headers = headers.map((h, i) => {
             if (!h) h = `Columna_${i + 1}`;
             if (seen[h] !== undefined) { seen[h]++; h = `${h}_${seen[h]}`; }
-            else seen[h] = 0;
+            else seen[h] = 1;
             return h;
           });
           data = jsonRows.slice(1).map(row =>
@@ -211,7 +211,7 @@ function buildConfigStep() {
   // Group-by select in results (will be populated after run)
 }
 
-function renderColChecks(containerId, headers, _fileIdx) {
+function renderColChecks(containerId, headers) {
   const el = $(containerId);
   el.innerHTML = headers.map(h => `
     <label class="col-check">
@@ -293,7 +293,7 @@ function buildRow(row1, row2, cols1, cols2, key1, key2, status) {
   const usedNames = new Set(cols1);
   cols2.forEach(c => {
     let name = c;
-    if (usedNames.has(name) && name !== key2) name = c + ' (Eq.)';
+    if (usedNames.has(name) && name !== key2) name = c + ' (Equipos)';
     usedNames.add(name);
     out[name] = row2 ? (row2[c] ?? '') : '';
   });
@@ -365,8 +365,12 @@ function renderTable() {
 
   // Headers
   thead.innerHTML = '<tr>' + cols.map(c => {
-    const cls = state.sortCol === c ? state.sortDir : '';
-    return `<th class="${cls}" data-col="${esc(c)}">${esc(c)} <span class="sort-arrow" aria-hidden="true"></span></th>`;
+    const isSorted = state.sortCol === c;
+    const cls = isSorted ? state.sortDir : '';
+    const ariaSort = isSorted
+      ? (state.sortDir === 'asc' ? 'ascending' : 'descending')
+      : 'none';
+    return `<th class="${cls}" data-col="${esc(c)}" aria-sort="${ariaSort}">${esc(c)} <span class="sort-arrow" aria-hidden="true"></span></th>`;
   }).join('') + '</tr>';
 
   // Bind sort

@@ -243,10 +243,11 @@
   <!-- ── TOAST ──────────────────────────────────────────────────── -->
   <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" hidden></div>
 
-  <!-- SheetJS via CDN -->
+  <!-- SheetJS via CDN (SRI-validated). If the CDN is unreachable the app will show an error. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
     integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    crossorigin="anonymous" referrerpolicy="no-referrer"
+    onerror="document.body.insertAdjacentHTML('beforeend','<p style=\'position:fixed;top:0;left:0;right:0;background:#ef4444;color:#fff;text-align:center;padding:12px;z-index:999\'>Error: no se pudo cargar la biblioteca de Excel. Verifica tu conexión a internet.</p>')"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
