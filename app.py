@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from io import BytesIO
 from typing import List
 
 import streamlit as st
 from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
@@ -102,7 +103,10 @@ def _build_output_pdf(equipos_info: dict, personas_info: dict, cuadrillas: List[
 
     story = [
         Paragraph("Resumen de Nombrada - SVTI", title_style),
-        Paragraph(f"Fecha de generación: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", normal_style),
+        Paragraph(
+            f"Fecha de generación (UTC): {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}",
+            normal_style,
+        ),
         Spacer(1, 12),
     ]
 
@@ -184,7 +188,11 @@ if st.button("Generar PDF", type="primary", use_container_width=True):
                 mime="application/pdf",
                 use_container_width=True,
             )
-        except Exception as exc:
-            st.error(f"No se pudo procesar uno de los PDFs: {exc}")
+        except PdfReadError:
+            st.error("Uno de los archivos no es un PDF válido o está dañado.")
+        except ValueError as exc:
+            st.error(f"Error de datos al procesar archivos: {exc}")
+        except Exception:
+            st.error("Error inesperado al generar el PDF. Verifica los archivos e inténtalo nuevamente.")
 else:
     st.info("Carga los archivos y presiona 'Generar PDF'.")
