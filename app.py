@@ -166,6 +166,9 @@ with right_col:
     seleccionadas: List[str] = []
     for i in range(cantidad_cuadrillas):
         opciones = [c for c in CUADRILLAS_DISPONIBLES if c not in seleccionadas]
+        if not opciones:
+            st.warning("No quedan más cuadrillas disponibles para seleccionar.")
+            break
         seleccion = st.selectbox(
             f"Cuadrilla #{i + 1}",
             options=opciones,
