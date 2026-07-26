@@ -68,7 +68,7 @@ def _extract_pdf_info(file_bytes: bytes, file_name: str) -> dict:
                 preview_parts.append(text.replace("\n", " "))
         preview = " ".join(preview_parts)[:500] or "Sin texto extraíble."
     except PdfReadError as exc:
-        raise ValueError(f"El archivo '{file_name}' no es un PDF válido o está dañado.") from exc
+        raise ValueError(f"El archivo '{file_name}' no es un PDF válido o está dañado: {exc}") from exc
 
     return {
         "nombre": file_name,
@@ -191,8 +191,6 @@ if st.button("Generar PDF", type="primary", use_container_width=True):
                 mime="application/pdf",
                 use_container_width=True,
             )
-        except PdfReadError:
-            st.error("Uno de los archivos no es un PDF válido o está dañado.")
         except ValueError as exc:
             st.error(f"Error de datos al procesar archivos: {exc}")
         except Exception as exc:
