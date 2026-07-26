@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nombrada – Asignación de Equipos y Cuadrillas</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="8" fill="#1d4ed8"/>
+          <path d="M8 10h20M8 18h14M8 26h17" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="27" cy="25" r="5" fill="#06b6d4"/>
+          <path d="M25 25l1.5 1.5L29 23" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Nombrada <strong>Equipos</strong></span>
+      </div>
+      <p class="header-sub">Carga dos archivos de nombrada y obtén el cruce de personas con equipos y cuadrillas</p>
+    </div>
+  </header>
+
+  <!-- ── MAIN ───────────────────────────────────────────────────── -->
+  <main class="container">
+
+    <!-- STEP 1 – Upload -->
+    <section id="step-upload" class="step active">
+      <div class="step-header">
+        <span class="badge">Paso 1</span>
+        <h2>Cargar archivos</h2>
+        <p>Arrastra o selecciona dos archivos de nombrada en formato <strong>.xlsx</strong>, <strong>.xls</strong> o <strong>.csv</strong>.</p>
+      </div>
+
+      <div class="upload-grid">
+        <!-- File 1 -->
+        <div class="upload-card" id="zone1" role="region" aria-label="Zona de carga archivo 1">
+          <div class="drop-zone" id="drop1" tabindex="0" aria-label="Zona de arrastre archivo 1">
+            <div class="drop-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#dbeafe"/>
+                <path d="M24 30V18M24 18l-5 5M24 18l5 5" stroke="#1d4ed8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 34h20" stroke="#1d4ed8" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="drop-title">Archivo de <strong>Personas</strong></p>
+            <p class="drop-hint">Haz clic o arrastra el archivo aquí</p>
+            <input type="file" id="file1" accept=".xlsx,.xls,.csv" class="file-input" aria-label="Seleccionar archivo de personas"/>
+            <button class="btn btn-outline" onclick="document.getElementById('file1').click()">Seleccionar archivo</button>
+          </div>
+          <div class="file-info" id="info1" hidden>
+            <svg class="fi-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4 3h8l4 4v10a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="#1d4ed8" stroke-width="1.5"/>
+              <path d="M12 3v4h4" stroke="#1d4ed8" stroke-width="1.5"/>
+            </svg>
+            <div>
+              <p class="fi-name" id="name1"></p>
+              <p class="fi-meta" id="meta1"></p>
+            </div>
+            <button class="btn-icon" id="clear1" title="Quitar archivo" aria-label="Quitar archivo 1">✕</button>
+          </div>
+        </div>
+
+        <div class="upload-arrow" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M8 16h16M20 10l6 6-6 6" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- File 2 -->
+        <div class="upload-card" id="zone2" role="region" aria-label="Zona de carga archivo 2">
+          <div class="drop-zone" id="drop2" tabindex="0" aria-label="Zona de arrastre archivo 2">
+            <div class="drop-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#ede9fe"/>
+                <path d="M24 30V18M24 18l-5 5M24 18l5 5" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 34h20" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="drop-title">Archivo de <strong>Equipos</strong></p>
+            <p class="drop-hint">Haz clic o arrastra el archivo aquí</p>
+            <input type="file" id="file2" accept=".xlsx,.xls,.csv" class="file-input" aria-label="Seleccionar archivo de equipos"/>
+            <button class="btn btn-outline purple" onclick="document.getElementById('file2').click()">Seleccionar archivo</button>
+          </div>
+          <div class="file-info" id="info2" hidden>
+            <svg class="fi-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4 3h8l4 4v10a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="#7c3aed" stroke-width="1.5"/>
+              <path d="M12 3v4h4" stroke="#7c3aed" stroke-width="1.5"/>
+            </svg>
+            <div>
+              <p class="fi-name" id="name2"></p>
+              <p class="fi-meta" id="meta2"></p>
+            </div>
+            <button class="btn-icon" id="clear2" title="Quitar archivo" aria-label="Quitar archivo 2">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-primary" id="btn-next-config" disabled>
+          Continuar <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 2 – Configure -->
+    <section id="step-config" class="step" hidden>
+      <div class="step-header">
+        <span class="badge">Paso 2</span>
+        <h2>Configurar cruce</h2>
+        <p>Selecciona las columnas que serán usadas para unir ambos archivos.</p>
+      </div>
+
+      <div class="config-grid">
+        <!-- Key columns -->
+        <div class="config-card">
+          <h3>Columna clave – Personas</h3>
+          <p class="config-hint">Campo que identifica a cada persona (ej.: Legajo, CUIL, ID)</p>
+          <select id="sel-key1" class="select-field" aria-label="Columna clave del archivo de personas"></select>
+        </div>
+
+        <div class="config-equal" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M6 10h16M6 18h16" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="config-card">
+          <h3>Columna clave – Equipos</h3>
+          <p class="config-hint">Campo que identifica al equipo o cuadrilla (ej.: Legajo, ID)</p>
+          <select id="sel-key2" class="select-field" aria-label="Columna clave del archivo de equipos"></select>
+        </div>
+      </div>
+
+      <!-- Column selection -->
+      <div class="cols-section">
+        <div class="cols-block">
+          <h3>Columnas de <em>Personas</em> a mostrar</h3>
+          <div class="cols-list" id="cols1"></div>
+        </div>
+        <div class="cols-block">
+          <h3>Columnas de <em>Equipos</em> a mostrar</h3>
+          <div class="cols-list" id="cols2"></div>
+        </div>
+      </div>
+
+      <!-- Join type -->
+      <div class="join-section">
+        <h3>Tipo de cruce</h3>
+        <div class="join-options" role="radiogroup" aria-label="Tipo de cruce">
+          <label class="join-opt selected">
+            <input type="radio" name="join" value="inner" checked/>
+            <span class="join-badge">Inner</span>
+            <span>Solo personas con equipo asignado</span>
+          </label>
+          <label class="join-opt">
+            <input type="radio" name="join" value="left"/>
+            <span class="join-badge">Left</span>
+            <span>Todas las personas (con o sin equipo)</span>
+          </label>
+          <label class="join-opt">
+            <input type="radio" name="join" value="right"/>
+            <span class="join-badge">Right</span>
+            <span>Todos los equipos (con o sin persona)</span>
+          </label>
+          <label class="join-opt">
+            <input type="radio" name="join" value="full"/>
+            <span class="join-badge">Full</span>
+            <span>Todos los registros de ambos archivos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-ghost" id="btn-back-upload">← Volver</button>
+        <button class="btn btn-primary" id="btn-run">Generar cruce →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3 – Results -->
+    <section id="step-results" class="step" hidden>
+      <div class="step-header">
+        <span class="badge">Paso 3</span>
+        <h2>Resultados del cruce</h2>
+      </div>
+
+      <!-- Summary cards -->
+      <div class="summary-grid" id="summary-grid"></div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="search-wrap">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="7" cy="7" r="4.5" stroke="#64748b" stroke-width="1.5"/>
+            <path d="M11 11l3 3" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input type="search" id="search-input" placeholder="Buscar…" class="search-input" aria-label="Buscar en resultados"/>
+        </div>
+
+        <div class="toolbar-right">
+          <label class="select-wrap" aria-label="Agrupar por">
+            <span>Agrupar por:</span>
+            <select id="group-by" class="select-field sm" aria-label="Campo de agrupación"></select>
+          </label>
+          <button class="btn btn-outline" id="btn-export-csv">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M2 10v3h11v-3M7.5 2v8M5 8l2.5 2L10 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            CSV
+          </button>
+          <button class="btn btn-outline" id="btn-export-xlsx">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M2 10v3h11v-3M7.5 2v8M5 8l2.5 2L10 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Excel
+          </button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap" id="table-wrap">
+        <table class="data-table" id="result-table" aria-label="Resultados del cruce">
+          <thead id="result-thead"></thead>
+          <tbody id="result-tbody"></tbody>
+        </table>
+      </div>
+
+      <div id="no-results" class="empty-state" hidden>
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+          <rect width="56" height="56" rx="14" fill="#f1f5f9"/>
+          <path d="M20 20l16 16M36 20L20 36" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <p>No se encontraron resultados con esos filtros.</p>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-ghost" id="btn-back-config">← Ajustar configuración</button>
+        <button class="btn btn-outline" id="btn-restart">Nuevo cruce</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── TOAST ──────────────────────────────────────────────────── -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" hidden></div>
+
+  <!-- SheetJS via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
+    integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
