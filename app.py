@@ -15,6 +15,7 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, Tabl
 
 MAX_CUADRILLAS = 5
 CUADRILLAS_DISPONIBLES = ["STS 1", "STS 2", "G9", "G5", "G10", "G6"]
+MAX_PREVIEW_LENGTH = 500
 
 
 st.set_page_config(
@@ -66,9 +67,9 @@ def _extract_pdf_info(file_bytes: bytes, file_name: str) -> dict:
             text = (page.extract_text() or "").strip()
             if text:
                 preview_parts.append(text.replace("\n", " "))
-        preview = " ".join(preview_parts)[:500] or "Sin texto extraíble."
+        preview = " ".join(preview_parts)[:MAX_PREVIEW_LENGTH] or "Sin texto extraíble."
     except PdfReadError as exc:
-        raise ValueError(f"El archivo '{file_name}' no es un PDF válido o está dañado: {exc}") from exc
+        raise ValueError(f"No se pudo leer el archivo PDF '{file_name}': {exc}") from exc
 
     return {
         "nombre": file_name,
