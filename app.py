@@ -175,8 +175,7 @@ with right_col:
             key=f"cuadrilla_{i}",
             help="Cada cuadrilla solo puede seleccionarse una vez.",
         )
-        if seleccion is not None:
-            seleccionadas.append(seleccion)
+        seleccionadas.append(seleccion)
 
 st.divider()
 

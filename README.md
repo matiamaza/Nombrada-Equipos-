@@ -1,4 +1,4 @@
-# Nombrada-Equipos-
+# Nombrada-Equipos
 
 Interfaz web en Streamlit para cargar PDFs de nombrada (equipos y personas) de SVTI, seleccionar cuadrillas en turno y generar un PDF de salida.
 
